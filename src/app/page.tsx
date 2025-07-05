@@ -24,6 +24,11 @@ export default function Dashboard() {
   const [editDeadline, setEditDeadline] = useState("");
   const [editPriority, setEditPriority] = useState(0.5);
   const [editStatus, setEditStatus] = useState("pending");
+  const [recommendation, setRecommendation] = useState<{
+    index: number;
+    reason: string;
+  } | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchTasks();
@@ -91,7 +96,42 @@ export default function Dashboard() {
         placeholder="Search tasks..."
         className="border px-2 py-1 rounded text-sm mb-6 w-full text-gray-900 dark:text-white dark:bg-gray-800"
       />
-
+      <div className="flex flex-wrap gap-2 justify-end mb-6">
+        <Link
+          href="/context"
+          className="bg-emerald-600 text-white px-3 py-1 text-sm rounded shadow hover:bg-emerald-700"
+        >
+          Train Tudu
+        </Link>
+        <button
+          onClick={async () => {
+            setLoading(true);
+            try {
+              const res = await api.post("/ai/recommend/");
+              const data = res.data;
+              setRecommendation({
+                index: data.recommended_task_index,
+                reason: data.reason,
+              });
+            } catch (err) {
+              alert("Failed to get AI suggestion");
+            }
+            setLoading(false);
+          }}
+          className="bg-indigo-600 text-white px-3 py-1 text-sm rounded shadow hover:bg-indigo-700"
+        >
+          {loading ? "Thinking..." : "✨ Ask AI"}
+        </button>
+      </div>
+      {recommendation && (
+        <div className="mt-4 mb-6 p-4 border rounded bg-yellow-50 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-100">
+          <strong>Tudu AI Suggestion:</strong>
+          <br />
+          Start with <strong>Task #{recommendation.index}</strong>
+          <br />
+          <em>{recommendation.reason}</em>
+        </div>
+      )}
       {tasks.length === 0 ? (
         <p className="text-gray-600 dark:text-gray-400">No tasks available.</p>
       ) : (
@@ -113,10 +153,14 @@ export default function Dashboard() {
                 );
               return new Date(b.id).getTime() - new Date(a.id).getTime();
             })
-            .map((task) => (
+            .map((task, index) => (
               <li
                 key={task.id}
-                className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition"
+                className={`p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition  ${
+                  recommendation?.index === index
+                    ? "bg-yellow-100 border-yellow-500 dark:bg-yellow-800 dark:border-yellow-400"
+                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                }`}
               >
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
                   {task.title}
