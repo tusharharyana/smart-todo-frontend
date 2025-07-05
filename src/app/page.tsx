@@ -56,7 +56,7 @@ export default function Dashboard() {
   return (
     <main className="max-w-3xl mx-auto p-6 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-        <h1 className="text-3xl font-bold">Let's Work Smart</h1>
+        <h1 className="text-2xl font-bold">Let's Work Smart with Tudu</h1>
         <div className="flex flex-wrap gap-2 items-center">
           <select
             className="border rounded px-2 py-1 text-sm text-gray-900 dark:text-white dark:bg-gray-800"
@@ -127,7 +127,7 @@ export default function Dashboard() {
         <div className="mt-4 mb-6 p-4 border rounded bg-yellow-50 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-100">
           <strong>Tudu AI Suggestion:</strong>
           <br />
-          Start with <strong>Task #{recommendation.index}</strong>
+          Start with <strong>Task #{recommendation.index + 1}</strong>
           <br />
           <em>{recommendation.reason}</em>
         </div>
@@ -165,6 +165,11 @@ export default function Dashboard() {
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
                   {task.title}
                 </h2>
+                {recommendation?.index === index && (
+                  <div className="text-xs text-yellow-700 dark:text-yellow-300 mb-1 font-semibold">
+                    Suggested by AI
+                  </div>
+                )}
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                   {task.description}
                 </p>

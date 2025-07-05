@@ -116,7 +116,7 @@ export default function ContextPage() {
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-3 py-1 text-sm rounded hover:bg-blue-700"
         >
           {editingId ? "Update Context" : "Add Context"}
         </button>
