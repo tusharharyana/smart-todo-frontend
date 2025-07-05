@@ -28,6 +28,8 @@ export default function AddTaskPage() {
   const [categoryId, setCategoryId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
+  const [loadingAI, setLoadingAI] = useState(false);
+  const [aiMessage, setAiMessage] = useState("");
 
   useEffect(() => {
     const fetchContexts = async () => {
@@ -69,6 +71,8 @@ export default function AddTaskPage() {
   };
 
   const handleAISuggestion = async () => {
+    setLoadingAI(true);
+    setAiMessage("Fetching AI suggestions...");
     try {
       const contextTexts = contexts.map((ctx) => ctx.content);
       const res = await api.post("ai/suggest/", {
@@ -80,13 +84,32 @@ export default function AddTaskPage() {
       setPriorityScore(data.priority_score);
       setDeadline(data.suggested_deadline);
       setDescription(data.improved_description);
+      setAiMessage("AI suggestions applied ✅");
+
       const matchedCategory = categories.find(
         (cat) =>
           cat.name.toLowerCase() === data.recommended_category?.toLowerCase()
       );
-      if (matchedCategory) setCategoryId(matchedCategory.id);
+
+      if (matchedCategory) {
+        setCategoryId(matchedCategory.id);
+      } else if (data.recommended_category?.trim()) {
+        try {
+          const res = await api.post("/categories/", {
+            name: data.recommended_category.trim(),
+          });
+          const newCat = res.data;
+          setCategories([...categories, newCat]);
+          setCategoryId(newCat.id);
+        } catch (err) {
+          console.error("Error creating recommended category:", err);
+        }
+      }
     } catch (err) {
       console.error("AI suggestion error", err);
+      setAiMessage("AI suggestion failed ");
+    } finally {
+      setLoadingAI(false);
     }
   };
 
@@ -165,13 +188,24 @@ export default function AddTaskPage() {
           <option value="done">Done</option>
         </select>
 
+        {aiMessage && (
+          <div className="text-sm text-center text-blue-500 dark:text-blue-300">
+            {aiMessage}
+          </div>
+        )}
+
         <div className="flex gap-2 justify-end">
           <button
             type="button"
             onClick={handleAISuggestion}
-            className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
+            disabled={loadingAI}
+            className={`px-3 py-1 rounded text-white ${
+              loadingAI
+                ? "bg-purple-400 cursor-not-allowed"
+                : "bg-purple-600 hover:bg-purple-700"
+            }`}
           >
-            AI Suggest
+            {loadingAI ? "Loading AI..." : "✨ AI Suggest"}
           </button>
           <button
             type="submit"
@@ -181,6 +215,7 @@ export default function AddTaskPage() {
           </button>
         </div>
       </form>
+
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded shadow max-w-sm w-full text-gray-900 dark:text-white">
