@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Tudu – Smart Todo Frontend
 
-## Getting Started
+A modern, AI-powered task management web app built with **Next.js**, **TypeScript**, and **Tailwind CSS**. Features include smart AI suggestions, deadline prioritization, editable tasks, dark/light theme toggle, and contextual task training.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 📋 Create, edit, delete tasks
+- 🧠 AI-powered task suggestions using context
+- ⏰ Priority & deadline-based sorting
+- 🧪 Context training system (Train Tudu)
+- 💬 AI recommendation for what to do first
+- 📅 Task creation time display
+- 🔍 Task filtering and search
+- 🗂️ Task categorization (with dynamic add option)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Framework:** Next.js 14 with App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **API Communication:** Axios
+- **Icons:** Heroicons
+- **Backend:** Django REST API (see backend folder)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Installation & Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/tusharharyana/smart-todo-frontend.git
+   cd smart-todo-frontend
+2. **Install packages:**
+   ```bash
+   npm install
+3. **⚙️ Configuration:**
+- Edit /lib/axios.ts to match your backend API URL:
+    ```bash
+    const api = axios.create({
+  baseURL: "http://localhost:8000/api/",
+    });
+    ```
+4. **Development**
+    ```bash
+    npm run dev
+## UI Screenshots
 
-## Deploy on Vercel
+- Fiters [Status, Priority, Search]
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Search filter
+
+![alt text](image-3.png)
+
+- AI Suggest on create new task
+
+![alt text](image-4.png)
+![alt text](image-5.png)
+
+
+- Manually add new categeory
+
+![alt text](image-6.png)
+
+- Train Tudu [Daily context input]
+
+![alt text](image-7.png)
+![alt text](image-8.png)
+
+- Ask AI
+
+![alt text](image-9.png)
+
