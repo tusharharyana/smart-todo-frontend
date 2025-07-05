@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import api from "@/lib/axios";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 interface ContextEntry {
   id: number;
@@ -140,7 +141,7 @@ export default function ContextPage() {
         {sortedEntries.map((entry) => (
           <li
             key={entry.id}
-            className="p-3 bg-gray-100 dark:bg-gray-800 border rounded-md text-sm"
+            className="p-3 bg-gray-100 dark:bg-gray-800 border rounded-md text-sm relative"
           >
             <div className="flex justify-between">
               <p>{entry.content}</p>
@@ -148,14 +149,16 @@ export default function ContextPage() {
                 <button
                   onClick={() => handleEdit(entry)}
                   className="text-blue-500 hover:underline"
+                   title="Edit Task"
                 >
-                  Edit
+                  <PencilSquareIcon className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleDelete(entry.id)}
                   className="text-red-500 hover:underline"
+                   title="Delete Task"
                 >
-                  Delete
+                  <TrashIcon className="w-5 h-5" />
                 </button>
               </div>
             </div>

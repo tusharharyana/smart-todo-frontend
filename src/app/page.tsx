@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import api from "@/lib/axios";
 import Link from "next/link";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 interface Task {
   id: number;
@@ -157,7 +158,7 @@ export default function Dashboard() {
             .map((task, index) => (
               <li
                 key={task.id}
-                className={`p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition  ${
+                className={`p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition relative  ${
                   recommendation?.index === index
                     ? "bg-yellow-100 border-yellow-500 dark:bg-yellow-800 dark:border-yellow-400"
                     : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
@@ -190,7 +191,7 @@ export default function Dashboard() {
                     {task.status === "done" ? "Completed" : "Pending"}
                   </span>
                 </div>
-                <div className="flex gap-3 mt-3">
+                <div className="absolute top-3 right-3 flex gap-2">
                   <button
                     onClick={() => {
                       setEditTask(task);
@@ -200,15 +201,17 @@ export default function Dashboard() {
                       setEditPriority(task.priority_score);
                       setEditStatus(task.status);
                     }}
-                    className="text-sm text-blue-600 hover:underline"
+                    className="text-blue-600 hover:text-blue-800"
+                    title="Edit Task"
                   >
-                    Edit
+                    <PencilSquareIcon className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleDelete(task.id)}
-                    className="text-sm text-red-600 hover:underline"
+                    className="text-red-600 hover:text-red-800"
+                    title="Delete Task"
                   >
-                    Delete
+                    <TrashIcon className="w-5 h-5" />
                   </button>
                 </div>
               </li>
