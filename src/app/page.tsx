@@ -10,6 +10,7 @@ interface Task {
   priority_score: number;
   deadline: string;
   status: string;
+  created_at: string;
 }
 
 export default function Dashboard() {
@@ -170,6 +171,9 @@ export default function Dashboard() {
                     Suggested by AI
                   </div>
                 )}
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  Created: {new Date(task.created_at).toLocaleString()}
+                </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                   {task.description}
                 </p>
