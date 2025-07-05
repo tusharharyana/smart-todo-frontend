@@ -51,30 +51,30 @@ A modern, AI-powered task management web app built with **Next.js**, **TypeScrip
 
 - Fiters [Status, Priority, Search]
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
+![alt text](public/images/image.png)
+![alt text](public/images/image-1.png)
+![alt text](public/images/image-2.png)
 
 - Search filter
 
-![alt text](image-3.png)
+![alt text](public/images/image-3.png)
 
 - AI Suggest on create new task
 
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](public/images/image-4.png)
+![alt text](public/images/image-5.png)
 
 
 - Manually add new categeory
 
-![alt text](image-6.png)
+![alt text](public/images/image-6.png)
 
 - Train Tudu [Daily context input]
 
-![alt text](image-7.png)
-![alt text](image-8.png)
+![alt text](public/images/image-7.png)
+![alt text](public/images/image-8.png)
 
 - Ask AI
 
-![alt text](image-9.png)
+![alt text](public/images/image-9.png)
 
